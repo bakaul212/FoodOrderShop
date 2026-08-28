@@ -1,0 +1,107 @@
+@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<style>
+    .auth-container {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .auth-card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        background: #ffffff;
+        overflow: hidden;
+        max-width: 450px;
+        width: 100%;
+    }
+    .auth-header {
+        background: linear-gradient(135deg, #ff4e50, #f9d423);
+        color: white;
+        padding: 30px 20px;
+        text-center: center;
+    }
+    .btn-gradient {
+        background: linear-gradient(135deg, #ff4e50, #f9d423);
+        color: white;
+        border: none;
+        font-weight: 600;
+        border-radius: 10px;
+        padding: 12px;
+        transition: all 0.3s ease;
+    }
+    .btn-gradient:hover {
+        opacity: 0.95;
+        color: white;
+        box-shadow: 0 4px 12px rgba(255, 78, 80, 0.3);
+    }
+    .form-control {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 1px solid #e0e0e0;
+    }
+    .form-control:focus {
+        border-color: #ff4e50;
+        box-shadow: 0 0 0 0.25rem rgba(255, 78, 80, 0.15);
+    }
+</style>
+
+<div class="auth-container my-4">
+    <div class="card auth-card">
+        <div class="auth-header text-center">
+            <h3 class="fw-bold mb-1"><i class="fa-solid fa-utensils me-2"></i>Welcome Back</h3>
+            <p class="mb-0 text-white-50">Log in to order your favorite food</p>
+        </div>
+        <div class="card-body p-4 p-sm-5">
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+                
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label fw-semibold text-secondary">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-envelope text-muted"></i></span>
+                        <input asp-for="Input.Email" class="form-control border-start-0" autocomplete="username" placeholder="name@example.com" />
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label fw-semibold text-secondary">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-lock text-muted"></i></span>
+                        <input asp-for="Input.Password" class="form-control border-start-0" autocomplete="current-password" placeholder="Password" />
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label text-secondary small" asp-for="Input.RememberMe">
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none small text-danger fw-semibold">Forgot?</a>
+                </div>
+
+                <button id="login-submit" type="submit" class="w-100 btn btn-gradient fs-6 mb-3">Log In</button>
+
+                <div class="text-center mt-3">
+                    <p class="text-muted small mb-0">Don't have an account? 
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-danger fw-bold text-decoration-none">Sign Up</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
